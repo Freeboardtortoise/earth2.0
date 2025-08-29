@@ -9,7 +9,7 @@ let world = [];
 for (let y = 0; y < gridSize; y++) {
     let currentRow = [];
     for (let x = 0; x < gridSize; x++) {
-        currentRow.push(0);
+        currentRow.push(int(Math.random()*10000) % 1);
     }
     world.push(currentRow);
 }
