@@ -80,6 +80,18 @@ for (let i = 0; i < 5; i++) {
     ));
 }
 
+function generateModel() {
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ inputShape: [2], units: 4, activation: 'relu' }));
+    model.add(tf.layers.dense({ units: 2, activation: 'tanh' })); // outputs -1 to 1
+
+    model.compile({
+    optimizer: 'sgd',
+    loss: 'meanSquaredError'
+    });
+
+}
+
 // Simulation loop
 function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
