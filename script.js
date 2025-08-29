@@ -5,11 +5,17 @@ const ctx = canvas.getContext('2d');
 const gridSize = 20;        // 20x20 tiles
 const tileSize = canvas.width / gridSize;
 
+//world stuff
+/*
+0 nothing
+1 wall
+*/
+
 let world = [];
 for (let y = 0; y < gridSize; y++) {
     let currentRow = [];
     for (let x = 0; x < gridSize; x++) {
-        currentRow.push(Math.floor(Math.random()*10000) % 10);
+        currentRow.push(Math.floor(Math.random()*10000) % 2);
     }
     world.push(currentRow);
 }
@@ -55,10 +61,25 @@ class Creature {
 
         // Map action to dx/dy
         let dx=0, dy=0;
-        if(action === 0) dy = -1;       // up
-        else if(action === 1) dy = 1;   // down
-        else if(action === 2) dx = -1;  // left
-        else if(action === 3) dx = 1;   // right
+        if(action === 0){ //up
+            if (world[this.y-1][this.x]==0) {
+                dy = -1;
+            }
+        }
+        else if(action === 1) {     // down
+            if (world[this.y + 1][this.x] == 0) {
+                dy = 1; }
+            }
+        else if(action === 2) {
+            if (world[this.y][this.x-1] == 0){
+                dx = -1; 
+            }
+        } // left
+        else if(action === 3) {
+            if (world[this.y][this.x+1]) {
+                    dx = 1; 
+                }
+            }   // right
 
         this.x = Math.max(0, Math.min(gridSize-1, this.x + dx));
         this.y = Math.max(0, Math.min(gridSize-1, this.y + dy));
@@ -114,6 +135,15 @@ function update() {
         creature.move();
         creature.draw();
     });
+    let wallColor = "#000000";
+    for (let y=0; y != gridSize; y++) {
+        for (let x=0; x != gridSize; x++){
+            if (world[y][x] == 1) {
+                ctx.fillStyle = wallColor;
+                ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+            }
+        }
+    }
 
     requestAnimationFrame(update);
 }
