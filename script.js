@@ -2,7 +2,7 @@
 const canvas = document.getElementById('worldCanvas');
 const ctx = canvas.getContext('2d');
 
-const gridSize = 20;        // 20x20 tiles
+const gridSize = 100;        // 20x20 tiles
 const tileSize = canvas.width / gridSize;
 
 //world stuff
@@ -15,13 +15,13 @@ let world = [];
 for (let y = 0; y < gridSize; y++) {
     let currentRow = [];
     for (let x = 0; x < gridSize; x++) {
-        currentRow.push(Math.floor(Math.random()*10000) % 2);
+        currentRow.push(Math.floor(Math.random()*10000) % 10);
     }
     world.push(currentRow);
 }
 
 
-const VIEW_SIZE = 8;
+const VIEW_SIZE = 3;
 const INPUT_SIZE = VIEW_SIZE * VIEW_SIZE; // 64
 const NUM_ACTIONS = 4; // up, down, left, right
 
